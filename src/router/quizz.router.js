@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const {}= require('../controller/quizz.controller')
+const {Question}= require('../controller/quizz.controller')
+const {authMiddleware} = require("../middleware/auth.middleware")
 // const Question= require("./model/quizz.model")
 
 // get all quiz questions
@@ -14,9 +15,7 @@ router.get('/questions/:id', (req, res) => {
 })
 
 // create one quiz question
-router.post('/questions', (req, res) => {
-
-})
+router.post('/quizz/questions',authMiddleware,Question)
 
 // update one quiz question
 router.put('/questions/:id', (req, res) => {

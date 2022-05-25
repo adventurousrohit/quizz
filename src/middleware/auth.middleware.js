@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken")
+const userModal= require('../model/user.model')
 
 
 exports.authMiddleware = async (req,res,next) => {
@@ -9,13 +10,13 @@ exports.authMiddleware = async (req,res,next) => {
 			null;
 
 		if (Authorization) {
-			const secretKey= config.get("secretKey");
+			const secretKey= "quizz";
 			const verificationResponse = (await jwt.verify(
 				Authorization,
 				secretKey
 			)) 
 			const userId = verificationResponse._id;
-			const findUser = await userModel.findById(userId);
+			const findUser = await userModal.findById(userId);
 
 			if (findUser) {
 				req.user = findUser;

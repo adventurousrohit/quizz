@@ -2,8 +2,10 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const cors = require("cors")
+const path = require("path")
 const quizzRouter= require("./router/quizz.router")
 const userRouter= require("./router/auth.router")
+// const { path } = require('express/lib/application')
 
 
 const port = process.env.PORT || 3000
@@ -13,6 +15,7 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 
 // app.use(cors)
+app.use(express.static(path.join(__dirname,"/public")))
 
 // require('dotenv').config()
 

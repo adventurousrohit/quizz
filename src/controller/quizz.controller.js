@@ -4,7 +4,11 @@ const User = require("../model/user.model")
 
 exports.Question = async (req, res) => {
     try {
-        const question = req.body
+        const question = {
+            id:req.user._id,
+            question:req.body.question,
+            options:[req.body.options]
+        }
         const checkUser = await User.findOne({ _id: question.id })
         if (!checkUser) {
             res.status(201).json({message:"User not find Please signUp"})

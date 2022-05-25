@@ -4,9 +4,14 @@ const QuestionSchema = new mongoose.Schema({
     id:{
         type:mongoose.Types.ObjectId,
         ref:"User",
-        required:true   
+        required:true ,
+        default:""  
     },
-    question: String,
+    question:{
+        type:String,
+        required:true
+        
+    },
     options: [
         {
             text: {

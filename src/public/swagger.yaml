@@ -1,0 +1,296 @@
+openapi: 3.0.3
+info:
+  title: Tooth Fairy
+  description: Tooth Fairy Rest APIs documentation
+  version: 1.0.0
+servers:
+  - url: 'http://127.0.0.1:3000/'
+    description: Local Development server
+tags:
+  - name: common
+    description: common API
+  - name: auth
+    description: auth API
+  - name: users
+    description: users API
+paths:
+  
+  /auth/user/signup:
+    post:
+      summary: Sign Up for Quizz
+      operationId: User Sign Up
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userName
+                - email
+                - password
+              properties:
+                userName:
+                  type: string
+                  example: Quizz123
+                email:
+                  type: string
+                  description: email address
+                  example: xyz@gmail.com
+                password:
+                  type: string
+                  description: password for authentication
+                  example: Rohit@1$23
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  /auth/user/login:
+    post:
+      summary: login for quizz
+      operationId: User Login
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  description: enter email
+                password:
+                  type: string
+                  description: enter password
+                  example: "Rohit@1$23"
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  
+  /quizz/questions:
+    post:
+      summary: Question for quizz
+      operationId: Quizz
+      tags:
+        - Quizz
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - question
+                - options
+              properties:
+                question:
+                  type: string
+                  example: what is your name
+                email:
+                  options: array
+                  example: [rohit,ramesh]
+      security:
+        - ApiKeyAuth: []
+
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  /admin/create-user:
+    post:
+      summary: creating employee by admin
+      operationId: Create
+      tags:
+        - admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - mobile
+                - password
+                - role
+              properties:
+                name:
+                  type: string
+                  example: Ravi
+                email:
+                  type: string
+                  example: 301996rohit@gmail.com
+                mobile:
+                  type: string
+                  example: '+919782547643'
+                password:
+                  type: string
+                  example: '123456'
+                role:
+                  type: string
+                  example: employee
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  /admin/user/update-role/{id}:
+    patch:
+      summary: updating role 
+      operationId: Update
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the user
+          example: 62441f31a8fe8d1fc8632bd8
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - type
+                - role
+              properties:
+                type:
+                  type: string
+                  example: push
+                role:
+                  type: string
+                  example: employee
+      responses:
+        '201':
+          description: Updated
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  /admin/user/update-profile/{id}:
+    put:
+      summary: update profile 
+      operationId: Update profile 
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the user
+          example: 62441f31a8fe8d1fc8632bd8
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - role
+              properties:
+                email:
+                  type: string
+                  example: raviroshanmehta@gmail.com
+                role:
+                  type: string
+                  example: employee
+      responses:
+        '201':
+          description: Updated
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  /admin/delete-user/{id}:
+    delete:
+      summary: deleteUser
+      operationId: delete
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the user
+          example: 62441f31a8fe8d1fc8632bd8
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '201':
+          description: OK
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  /admin/user-details/{role}:
+    get:
+      summary: UserDetails
+      operationId: Users
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: role
+          schema:
+            type: string
+          required: true
+          description: Role of the user
+          example: employee    
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  
+ 
