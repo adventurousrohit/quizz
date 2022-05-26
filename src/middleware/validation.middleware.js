@@ -20,7 +20,20 @@ check('password')
 .isLength({min:6})
 .withMessage('Password must be least 6 charcters')
 ]
-
+exports.validateQuizzDetails=[
+    check('question')
+    .notEmpty()
+    .withMessage("please put question"),
+    check('answer')
+    .notEmpty()
+    .withMessage("please put answer"),
+    // check('question')
+    // .notEmpty()
+    // .withMessage('required atleast on question for creating the quizz'),
+    // check('options')
+    // .notEmpty()
+    // .withMessage('response is neccesasry for this question')
+]
 
 exports.validateQuizz=[
     check('quizzName')

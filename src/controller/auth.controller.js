@@ -1,4 +1,4 @@
-const Question = require("../model/quizz.model")
+
 const User = require("../model/user.model")
 const bcrypt = require("bcrypt")
 const {authMiddleware,jwtSign}= require("../middleware/auth.middleware")
@@ -53,7 +53,7 @@ exports.login=async (req,res)=>{
             if (!isPasswordMatching){
                 res.status(201).json({message:"Wrong Password"})
             }
-            const token= jwtSign(user)
+            const token= jwtSign(checkuser)
             console.log("testing",token)
         res.status(200).send(token)
 

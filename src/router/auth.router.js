@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Question= require("../model/quizz.model")
+// const Question= require("../model/quizz.model")
 const User= require("../model/user.model")
 const{SignUp, login} = require('../controller/auth.controller')
 const {validateSignupRequest,validateSigninRequest,isRequestValidated}= require("../middleware/validation.middleware")

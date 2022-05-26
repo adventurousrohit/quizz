@@ -16,24 +16,52 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-
-
-    
-    quizzStates:[{
-        attempts:{
-            type:Number,
-            default:0
+    quizz:[{
+        quizzId:{ 
+        type:mongoose.Types.ObjectId,
+        ref:'QuizzName'
         },
-        completion:{
-            type:Boolean,
-            default:false
-        },
-        lastHighScore:{
-            type:Number,
-            default:0
-        }
-    }]
+        // default:[]
+       
+    }],
+    quizzStates:{ 
+        attempts:[{
+            quizzId:{
+                type:String,
+                default:""
+
+            },
+            attempts:{
+                type:Number,
+                default:0
+            }
+        }],
+        completion:[{
+            quizzId:{
+                type:String,
+                default:""
+
+            },
+            completion:{
+                type:Boolean,
+                default:false
+            }
+        }],
+        lastHighScore:[{
+            quizzId:{
+                type:String,
+                default:""
+
+            },
+            lastHighScore:{
+                type:Number,
+                default:0
+            }
+        }]
+       }
    
 })
+
+
 
 module.exports = mongoose.model('User', userSchema)

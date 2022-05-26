@@ -2,12 +2,11 @@
 const mongoose= require('mongoose')
 
 const quizzSchema = new mongoose.Schema({
-    // quizzId:{
-    //     _id: mongoose.Types.ObjectId,
-    //     ref:'Question'
+    userId:{
+        type: mongoose.Types.ObjectId,
+        ref:'User'
     
-    
-    // },
+    },
 
     quizzName: {
         type: String,

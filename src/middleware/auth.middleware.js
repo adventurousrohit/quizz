@@ -5,9 +5,7 @@ const userModal= require('../model/user.model')
 exports.authMiddleware = async (req,res,next) => {
 	try {
 		const Authorization =
-			req.header("Authorization").split("Bearer ")[1] ||
-			req.cookies["Authorization"] ||
-			null;
+			req.header("Authorization").split("Bearer ")[1]
 
 		if (Authorization) {
 			const secretKey= "quizz";
@@ -17,7 +15,8 @@ exports.authMiddleware = async (req,res,next) => {
 			)) 
 			const userId = verificationResponse._id;
 			const findUser = await userModal.findById(userId);
-
+			
+			console.log("findUser",findUser)
 			if (findUser) {
 				req.user = findUser;
 				next();
