@@ -20,4 +20,4 @@ const quizzSchema = new mongoose.Schema({
     }]
 })
 
-modules.export= mongoose.model("QuizzContent",quizzSchema)
+module.exports= mongoose.model("QuizzContent",quizzSchema)

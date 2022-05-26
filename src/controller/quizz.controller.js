@@ -5,18 +5,16 @@ const QuizzName= require('../model/quizzname.model')
 
 exports.createQuizz = async (req, res) => {
     try {
-        const _id=req.body.id
-        const findUser= await User.findOne(_id)
+        const id=req.body.id
+        const findUser= await User.findOne({_id:id})
         if(!findUser){
             res.status(201).json({message:"Please Sign Up"})
         }
-        const quizzName= req.body
-        const createQuizz=
+        const quizzName= {quizzName:req.body.quizzName}
+        const createQuizz= await QuizzName.create(quizzName,(err,result)=>{if(result){console.log(result)}})
+        console.log("id",createQuizz)
+        res.status(200).json(createQuizz)
     
-
-
-        
-
 
     } catch {e=>e }
 

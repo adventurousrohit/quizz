@@ -26,12 +26,12 @@ exports.validateQuizz=[
     check('quizzName')
     .notEmpty()
     .withMessage("please give name to your quizz"),
-    check('question')
-    .notEmpty()
-    .withMessage('required atleast on question for creating the quizz'),
-    check('options')
-    .notEmpty()
-    .withMessage('response is neccesasry for this question')
+    // check('question')
+    // .notEmpty()
+    // .withMessage('required atleast on question for creating the quizz'),
+    // check('options')
+    // .notEmpty()
+    // .withMessage('response is neccesasry for this question')
 ]
 
 exports.isRequestValidated = (req,res,next)=>{

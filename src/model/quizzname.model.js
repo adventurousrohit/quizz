@@ -9,10 +9,10 @@ const quizzSchema = new mongoose.Schema({
     
     // },
 
-    quizzname: {
+    quizzName: {
         type: String,
         required: true
     }
 })
 
-modules.export= mongoose.model("QuizzName",quizzSchema)
+module.exports= mongoose.model("QuizzName",quizzSchema)
