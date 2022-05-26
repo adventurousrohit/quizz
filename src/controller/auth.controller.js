@@ -17,7 +17,7 @@ exports.SignUp = async (req, res) => {
         //     password: req.body.password,
         //     email: req.body.email
         // })
-        const user = req.body
+        const user = req?.body
         console.log("user",user)
 
         const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -47,7 +47,7 @@ exports.login=async (req,res)=>{
         }
         const user = req.body
         const isPasswordMatching = await bcrypt.compare(
-            user.password,
+            user?.password,
 			checkuser.password
             );
             if (!isPasswordMatching){

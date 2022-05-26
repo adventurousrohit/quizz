@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { required } = require('nodemon/lib/config')
+// const { required } = require('nodemon/lib/config')
 
 const userSchema = new mongoose.Schema({
 
@@ -15,7 +15,24 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true
-    }
+    },
+
+
+    
+    quizzStates:[{
+        attempts:{
+            type:Number,
+            default:0
+        },
+        completion:{
+            type:Boolean,
+            default:false
+        },
+        lastHighScore:{
+            type:Number,
+            default:0
+        }
+    }]
    
 })
 

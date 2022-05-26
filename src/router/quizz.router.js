@@ -3,7 +3,8 @@ const router = express.Router()
 const {Question}= require('../controller/quizz.controller')
 const {authMiddleware} = require("../middleware/auth.middleware")
 // const Question= require("./model/quizz.model")
-
+const {validateQuizz} = require('../middleware/validation.middleware')
+const {createQuizz} = require('../controller/quizz.controller')
 // get all quiz questions
 router.get('/questions', (req, res) => {
 
@@ -14,8 +15,8 @@ router.get('/questions/:id', (req, res) => {
 
 })
 
-// create one quiz question
-router.post('/quizz/questions',authMiddleware,Question)
+// create quiz question
+router.post('/create-quizz',validateQuizz,createQuizz)
 
 // update one quiz question
 router.put('/questions/:id', (req, res) => {
