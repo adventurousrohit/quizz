@@ -4,7 +4,7 @@ info:
   description: Tooth Fairy Rest APIs documentation
   version: 1.0.0
 servers:
-  - url: 'http://127.0.0.1:3000/'
+  - url: 'http://localhost:3000/'
     description: Local Development server
 tags:
   - name: common
@@ -14,11 +14,11 @@ tags:
   - name: users
     description: users API
 paths:
-  
+
   /auth/user/signup:
     post:
-      summary: Sign Up for Quizz
-      operationId: User Sign Up
+      summary: User SignUp
+      operationId: Signup
       tags:
         - auth
       requestBody:
@@ -34,15 +34,15 @@ paths:
               properties:
                 userName:
                   type: string
-                  example: Quizz123
+                  example: rohit123
                 email:
                   type: string
                   description: email address
                   example: xyz@gmail.com
                 password:
                   type: string
-                  description: password for authentication
-                  example: Rohit@1$23
+                  description: enter mobile number with country code
+                  example: '123456'
       responses:
         '201':
           description: Created
@@ -54,8 +54,8 @@ paths:
           description: Server Error
   /auth/user/login:
     post:
-      summary: login for quizz
-      operationId: User Login
+      summary: User Login
+      operationId: login
       tags:
         - auth
       requestBody:
@@ -70,45 +70,12 @@ paths:
               properties:
                 email:
                   type: string
-                  description: enter email
+                  description: enter emailid
+                  example: xyz@gmail.com
                 password:
                   type: string
                   description: enter password
-                  example: "Rohit@1$23"
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-        '409':
-          description: Conflict
-        '500':
-          description: Server Error
-  
-  /quizz/questions:
-    post:
-      summary: Question for quizz
-      operationId: Quizz
-      tags:
-        - Quizz
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - question
-                - options
-              properties:
-                question:
-                  type: string
-                  example: what is your name
-                email:
-                  options: array
-                  example: [rohit,ramesh]
-      security:
-        - ApiKeyAuth: []
+                  example: 123456
 
       responses:
         '200':
@@ -119,12 +86,13 @@ paths:
           description: Conflict
         '500':
           description: Server Error
-  /admin/create-user:
+
+  /create-name:
     post:
-      summary: creating employee by admin
-      operationId: Create
+      summary: create Quizz name
+      operationId: Quizz Name
       tags:
-        - admin
+        - Quizz
       requestBody:
         required: true
         content:
@@ -132,52 +100,30 @@ paths:
             schema:
               type: object
               required:
-                - name
-                - email
-                - mobile
-                - password
-                - role
+                - quizzName
               properties:
-                name:
+                quizzName:
                   type: string
-                  example: Ravi
-                email:
-                  type: string
-                  example: 301996rohit@gmail.com
-                mobile:
-                  type: string
-                  example: '+919782547643'
-                password:
-                  type: string
-                  example: '123456'
-                role:
-                  type: string
-                  example: employee
+                  description: enter Quizz Name
+                  example: rohit
       security:
         - ApiKeyAuth: []
       responses:
-        '201':
-          description: Created
+        '200':
+          description: OK
         '400':
           description: Bad Request
         '409':
           description: Conflict
         '500':
-          description: Server Error
-  /admin/user/update-role/{id}:
-    patch:
-      summary: updating role 
-      operationId: Update
+          description: Server Error  
+  
+  /create-quizz:
+    post:
+      summary: create Quizz Content
+      operationId: Quizz Content
       tags:
-        - admin
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-          description: ID of the user
-          example: 62441f31a8fe8d1fc8632bd8
+        - Quizz
       requestBody:
         required: true
         content:
@@ -185,81 +131,27 @@ paths:
             schema:
               type: object
               required:
-                - type
-                - role
+                - id
+                - question
+                - answer
               properties:
-                type:
+                question:
                   type: string
-                  example: push
-                role:
+                  description: Whats your name
+                  example: Whats your name
+                answer:
                   type: string
-                  example: employee
-      responses:
-        '201':
-          description: Updated
-        '400':
-          description: Bad Request
-        '409':
-          description: Conflict
-        '500':
-          description: Server Error
-  /admin/user/update-profile/{id}:
-    put:
-      summary: update profile 
-      operationId: Update profile 
-      tags:
-        - admin
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-          description: ID of the user
-          example: 62441f31a8fe8d1fc8632bd8
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - email
-                - role
-              properties:
-                email:
-                  type: string
-                  example: raviroshanmehta@gmail.com
-                role:
-                  type: string
-                  example: employee
-      responses:
-        '201':
-          description: Updated
-        '400':
-          description: Bad Request
-        '409':
-          description: Conflict
-        '500':
-          description: Server Error
-  /admin/delete-user/{id}:
-    delete:
-      summary: deleteUser
-      operationId: delete
-      tags:
-        - admin
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
-          description: ID of the user
-          example: 62441f31a8fe8d1fc8632bd8
+                  description: rohit
+                  example: rohit
+                id:
+                  type: number
+                  description: id of question
+                  example: 1
+
       security:
-        - ApiKeyAuth: []
+        - ApiKeyAuth: []            
       responses:
-        '201':
+        '200':
           description: OK
         '400':
           description: Bad Request
@@ -267,20 +159,97 @@ paths:
           description: Conflict
         '500':
           description: Server Error
-  /admin/user-details/{role}:
-    get:
-      summary: UserDetails
-      operationId: Users
+    
+  /questions/{quizzId}:
+    patch:
+      summary: create Quizz Content
+      operationId: Quizz 
       tags:
-        - admin
+        - Quizz
       parameters:
         - in: path
-          name: role
+          name: quizzId
           schema:
             type: string
           required: true
-          description: Role of the user
-          example: employee    
+          description: ID of the quizz
+          example: 62905e64f9a0fecd837e4ed6
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+                - question
+                - answer
+              properties:
+                question:
+                  type: string
+                  description: Whats your name
+                  example: Whats your sirname
+                answer:
+                  type: string
+                  description: gupta
+                  example: gupta
+                id:
+                  type: number
+                  description: id of question
+                  example: 2
+
+      security:
+        - ApiKeyAuth: []            
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+
+  /quizz/{id}:
+    delete:
+      summary: create Quizz Content
+      operationId:  Delete Quizz
+      tags:
+        - Quizz
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the quizz
+          example: 62905e64f9a0fecd837e4ed6
+      security:
+        - ApiKeyAuth: []            
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+        '500':
+          description: Server Error
+  
+  /quizz:
+    get:
+      summary: quizz
+      operationId: find Quizz
+      tags:
+        - Quizz
+      parameters:
+        - in: query
+          name: quizzId
+          schema:
+            type: string
+          required: true
+          description: quizz id
+          example: 62905e64f9a0fecd837e4ed6   
       security:
         - ApiKeyAuth: []
       responses:
@@ -292,5 +261,61 @@ paths:
           description: Conflict
         '500':
           description: Server Error
+
+   
+
+
   
- 
+  
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+
+    
+    User:
+      properties:
+        name:
+          type: string
+          example: Ravi Roshan
+        password:
+          type: string
+          example: '1234567'
+        gender:
+          type: string
+          example: male
+        dob:
+          type: number
+          example: 1623152805000
+        profileImage:
+          type: string
+          example: default.png
+        bgImage:
+          type: string
+          example: default.png
+        address:
+          type: string
+          example: Jaipur, Rajasthan India
+        location:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Point
+                - Polygon
+              example: Point
+            coordinates:
+              type: array
+              items:
+                type: integer
+                format: int64
+              example:
+                - -104.9903
+                - 39.7392
+
+  
+

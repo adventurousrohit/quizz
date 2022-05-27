@@ -6,21 +6,14 @@ const{SignUp, login} = require('../controller/auth.controller')
 const {validateSignupRequest,validateSigninRequest,isRequestValidated}= require("../middleware/validation.middleware")
 
 
-// create one quiz question
+// User Signup
 router.post('/auth/user/signup',validateSignupRequest,isRequestValidated,SignUp)
 
-// // update one quiz question
+// // User Login
 router.post('/auth/user/login',validateSigninRequest,isRequestValidated,login)
 
-router.get("/user",(req,res)=>{
-    res.send("test complete")
-})
 
-// this one is just a test
-// router.get('/user', (req, res) => {
-//     console.log("hello")
-//     res.send('H3ll0 W0RlD')
-// })
+
 
 
 module.exports = router

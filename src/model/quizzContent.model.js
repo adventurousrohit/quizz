@@ -9,6 +9,10 @@ const quizzSchema = new mongoose.Schema({
     },
 
     quizzContent: [{
+      id:{
+        type:Number,
+       required:true
+      },
       question:{
           type:String,
           required:true

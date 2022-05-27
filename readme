@@ -1,0 +1,13 @@
+### Setting up the development environment ###
+To setup:
+
+clone repo in folder using  command  `git clone https://github.com/adventurousrohit/quizz.git`  from https
+
+change directory using command `cd Quizz` you'll need  `<npm i> `in quizz directory to install all dependecy
+
+After installing dependancies run command `<npm run dev>`
+
+
+After starting local server go on link `http://localhost:3000/quizz-docs`
+
+Swagger client will be open for testing for api

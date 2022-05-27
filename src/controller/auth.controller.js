@@ -37,7 +37,7 @@ console.log("user data",createUserData)
 
 }
 
-
+//  controller for login
 exports.login=async (req,res)=>{
     try{
         

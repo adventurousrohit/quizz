@@ -1,5 +1,5 @@
 window.onload = function () {
-    let url = "http://127.0.0.1:3000/swagger.yaml"
+    let url = "http://localhost:3000/swagger.yaml"
     var arr = window.location.href.split('?url=');
     if (arr.length > 1) {
         url = arr[1]
