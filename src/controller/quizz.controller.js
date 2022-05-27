@@ -3,6 +3,7 @@
 const User = require("../model/user.model")
 const QuizzName = require('../model/quizzname.model')
 const QuizzContent = require('../model/quizzContent.model')
+const res = require("express/lib/response")
 
 
 exports.createQuizzName = async (req, res) => {
@@ -46,27 +47,58 @@ exports.createQuizz = async (req, res) => {
     } catch { e => e }
 
 
+}
 
-    exports.updateQuizz= async(req,res)=>{
-        try{
 
-            const userId= req.user._id
-            const idForUpdate= req.params.id
-            const findQuizz= await QuizzName.findOne({_id:idForUpdate})
-            if(userId!=findQuizz.userId){
-                res.status(201).json({message:"you are not authorized to update"})
+exports.updateQuizzContent = async (req, res) => {
+    try {
+
+        const userId = req.user._id
+        const idForUpdate = req.params.id
+        const findQuizz = await QuizzName.findOne({ _id: idForUpdate })
+        if (userId !== findQuizz.userId) {
+            res.status(201).json({ message: "you are not authorized to update" })
+        }
+        const updateQuizz = await QuizzContent.findByIdAndUpdate(
+            { quizzId: findQuizz.quizzId },
+            {
+                $push: {
+                    quizzContent: { question: req.body.question, answer: req.body.answer }
+                }
             }
-            const updateQuizz= await QuizzContent.findByIdAndUpdate(
-                {quizzId:findQuizz.quizzId},
-                {$push:{quizzContent:{question:req.body.question,answer:req.body.answer}
-                }} 
-                )
+        )
 
-                res.status(200).json(updateQuizz)
+        res.status(200).json(updateQuizz)
 
-        }catch{e=>e}
-      
-    }
-
+    } catch { e => e }
 
 }
+
+
+exports.deleteQuizz = async (req, res) => {
+    const quizzId = req.params.id
+    const userId= req.user._id
+
+    const findContentWithId = await QuizzName.findOne({ _id: quizzId })
+    if(findContentWithId.userId==userId){
+        if (!findContentWithId) {
+            res.status(201).json({ message: "Quiz does not exist" })
+        } else {
+            const deleteContent = await QuizzContent.findByIdAndDelete({ quizzId: quizzId })
+            if (deleteContent) {
+                const findQuizz = await QuizzName.findByIdAndDelete({ _id: quizzId })
+                res.status(200).json({ message: "quizz delete succesfully" })
+            }
+        }
+    }else{
+        res.status(201).json({message:"you are not authrized to change"})
+    }
+
+}
+
+exports.allQuizzes= async (req,res)=>{
+    const allQuizzes= await QuizzName.find()
+    res.status(200).json(allQuizzes)
+}
+
+

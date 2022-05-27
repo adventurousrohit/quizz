@@ -4,7 +4,7 @@ const {Question}= require('../controller/quizz.controller')
 const {authMiddleware} = require("../middleware/auth.middleware")
 // const Question= require("./model/quizz.model")
 const {validateQuizz,validateQuizzDetails} = require('../middleware/validation.middleware')
-const {createQuizzName,createQuizz,updateQuizz} = require('../controller/quizz.controller')
+const {createQuizzName,createQuizz,updateQuizzContent,allQuizzes,deleteQuizz} = require('../controller/quizz.controller')
 // get all quiz questions
 router.get('/questions', (req, res) => {
 
@@ -20,12 +20,13 @@ router.post('/create-name',validateQuizz,authMiddleware,createQuizzName)
 router.post('/create-quizz/:id',validateQuizzDetails,authMiddleware,createQuizz)
 
 // update one quiz question
-router.patch('/questions/:id',validateQuizzDetails,authMiddleware)
+router.patch('/questions/:id',validateQuizzDetails,authMiddleware,updateQuizzContent)
 
 // delete one quiz question
-router.delete('/questions/:id', (req, res) => {
+router.delete('/questions/:id',authMiddleware,)
 
-})
+// all quizzes
+router.get('/quizz',allQuizzes)
 
 // this one is just a test
 router.get('/test', (req, res) => {
