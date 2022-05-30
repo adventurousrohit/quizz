@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Tooth Fairy
-  description: Tooth Fairy Rest APIs documentation
+  title: quizz
+  description: quizz Rest APIs documentation
   version: 1.0.0
 servers:
   - url: 'http://localhost:3000/'
